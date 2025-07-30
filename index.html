@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Fullscreen iFrame</title>
+  <title>Circo & Co.</title>
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -24,12 +26,30 @@
     }
   </style>
 </head>
+
 <body>
-  <iframe 
-    src="https://successful-frictionless-266316.framer.app/" 
-    name="myiFrame"
-    scrolling="no"
-    allowfullscreen>
+  <iframe src="https://successful-frictionless-266316.framer.app/" name="myiFrame" scrolling="yes" allowfullscreen>
   </iframe>
+  <script>
+     document.addEventListener('DOMContentLoaded', function () {
+    var badgeContainer = document.getElementById('__framer-badge-container');
+    if (badgeContainer) {
+      badgeContainer.parentNode.removeChild(badgeContainer);
+    }
+  });
+    //get iframer object
+    const iframe = document.querySelector('iframe');
+
+    iframe.addEventListener('load', function () {
+      //iframe's content document, access iframe dom
+      const iframeDocument = iframe.contentWindow.document;
+
+      //remove framer badge
+      console.log("response: ", iframeDocument.querySelector("div"));
+    });
+
+    console.log("removed");
+  </script>
 </body>
+
 </html>
