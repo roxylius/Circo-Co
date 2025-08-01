@@ -3,26 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Circo & Co.</title>
   <style>
-    html,
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
-      height: 100%;
-      width: 100%;
     }
 
     iframe {
-      position: fixed;
-      top: 0;
-      left: 0;
+      /* This makes the iframe itself responsive */
       width: 100vw;
       height: 100vh;
       border: none;
-      outline: none;
-      overflow: hidden;
+      display: block; /* good practice */
     }
   </style>
 </head>
@@ -30,25 +24,27 @@
 <body>
   <iframe src="https://successful-frictionless-266316.framer.app/" name="myiFrame" scrolling="yes" allowfullscreen>
   </iframe>
+  
   <script>
-     document.addEventListener('DOMContentLoaded', function () {
-    var badgeContainer = document.getElementById('__framer-badge-container');
-    if (badgeContainer) {
-      badgeContainer.parentNode.removeChild(badgeContainer);
-    }
-  });
-    //get iframer object
-    const iframe = document.querySelector('iframe');
+    // Note: The code below to remove the Framer badge will likely not work
+    // due to browser security restrictions (cross-origin policy) and is
+    // a separate issue from the responsiveness problem.
 
-    iframe.addEventListener('load', function () {
-      //iframe's content document, access iframe dom
-      const iframeDocument = iframe.contentWindow.document;
-
-      //remove framer badge
-      console.log("response: ", iframeDocument.querySelector("div"));
+    document.addEventListener('DOMContentLoaded', function () {
+      var badgeContainer = document.getElementById('__framer-badge-container');
+      if (badgeContainer) {
+        badgeContainer.parentNode.removeChild(badgeContainer);
+      }
     });
-
-    console.log("removed");
+    const iframe = document.querySelector('iframe');
+    iframe.addEventListener('load', function () {
+      try {
+        const iframeDocument = iframe.contentWindow.document;
+        console.log("iframe content loaded");
+      } catch (e) {
+        console.error("Could not access iframe content. This is expected due to cross-origin security.", e);
+      }
+    });
   </script>
 </body>
 
